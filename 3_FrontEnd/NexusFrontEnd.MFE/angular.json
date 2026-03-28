@@ -1,0 +1,1126 @@
+﻿{
+    "$schema":  "./node_modules/@angular/cli/lib/config/schema.json",
+    "version":  1,
+    "newProjectRoot":  "projects",
+    "projects":  {
+                     "angular-standalone-project":  {
+                                                        "projectType":  "application",
+                                                        "schematics":  {
+                                                                           "@schematics/angular:class":  {
+                                                                                                             "skipTests":  true
+                                                                                                         },
+                                                                           "@schematics/angular:component":  {
+                                                                                                                 "skipTests":  true
+                                                                                                             },
+                                                                           "@schematics/angular:directive":  {
+                                                                                                                 "skipTests":  true
+                                                                                                             },
+                                                                           "@schematics/angular:guard":  {
+                                                                                                             "skipTests":  true
+                                                                                                         },
+                                                                           "@schematics/angular:interceptor":  {
+                                                                                                                   "skipTests":  true
+                                                                                                               },
+                                                                           "@schematics/angular:pipe":  {
+                                                                                                            "skipTests":  true
+                                                                                                        },
+                                                                           "@schematics/angular:resolver":  {
+                                                                                                                "skipTests":  true
+                                                                                                            },
+                                                                           "@schematics/angular:service":  {
+                                                                                                               "skipTests":  true
+                                                                                                           }
+                                                                       },
+                                                        "root":  "",
+                                                        "sourceRoot":  "src",
+                                                        "prefix":  "app",
+                                                        "architect":  {
+                                                                          "build":  {
+                                                                                        "builder":  "@angular-architects/native-federation:build",
+                                                                                        "options":  {
+
+                                                                                                    },
+                                                                                        "configurations":  {
+                                                                                                               "production":  {
+                                                                                                                                  "target":  "angular-standalone-project:esbuild:production"
+                                                                                                                              },
+                                                                                                               "development":  {
+                                                                                                                                   "target":  "angular-standalone-project:esbuild:development",
+                                                                                                                                   "dev":  true
+                                                                                                                               }
+                                                                                                           },
+                                                                                        "defaultConfiguration":  "production"
+                                                                                    },
+                                                                          "serve":  {
+                                                                                        "builder":  "@angular-architects/native-federation:build",
+                                                                                        "options":  {
+                                                                                                        "target":  "angular-standalone-project:serve-original:development",
+                                                                                                        "rebuildDelay":  500,
+                                                                                                        "dev":  true,
+                                                                                                        "cacheExternalArtifacts":  false,
+                                                                                                        "port":  4200
+                                                                                                    }
+                                                                                    },
+                                                                          "extract-i18n":  {
+                                                                                               "builder":  "@angular-devkit/build-angular:extract-i18n"
+                                                                                           },
+                                                                          "test":  {
+                                                                                       "builder":  "@angular-devkit/build-angular:karma",
+                                                                                       "options":  {
+                                                                                                       "polyfills":  [
+                                                                                                                         "zone.js",
+                                                                                                                         "zone.js/testing"
+                                                                                                                     ],
+                                                                                                       "tsConfig":  "tsconfig.spec.json",
+                                                                                                       "assets":  [
+                                                                                                                      {
+                                                                                                                          "glob":  "**/*",
+                                                                                                                          "input":  "public"
+                                                                                                                      }
+                                                                                                                  ],
+                                                                                                       "styles":  [
+                                                                                                                      "src/styles.css"
+                                                                                                                  ],
+                                                                                                       "scripts":  [
+
+                                                                                                                   ]
+                                                                                                   }
+                                                                                   },
+                                                                          "esbuild":  {
+                                                                                          "builder":  "@angular/build:application",
+                                                                                          "options":  {
+                                                                                                          "outputPath":  "dist/NexusFrontEnd",
+                                                                                                          "index":  "src/index.html",
+                                                                                                          "browser":  "src/main.ts",
+                                                                                                          "polyfills":  [
+                                                                                                                            "zone.js",
+                                                                                                                            "es-module-shims"
+                                                                                                                        ],
+                                                                                                          "tsConfig":  "tsconfig.app.json",
+                                                                                                          "assets":  [
+                                                                                                                         {
+                                                                                                                             "glob":  "**/*",
+                                                                                                                             "input":  "public"
+                                                                                                                         }
+                                                                                                                     ],
+                                                                                                          "styles":  [
+                                                                                                                         "src/styles.css"
+                                                                                                                     ],
+                                                                                                          "scripts":  [
+
+                                                                                                                      ]
+                                                                                                      },
+                                                                                          "configurations":  {
+                                                                                                                 "production":  {
+                                                                                                                                    "fileReplacements":  [
+                                                                                                                                                             {
+                                                                                                                                                                 "replace":  "src/environments/environment.ts",
+                                                                                                                                                                 "with":  "src/environments/environment.prod.ts"
+                                                                                                                                                             }
+                                                                                                                                                         ],
+                                                                                                                                    "budgets":  [
+                                                                                                                                                    {
+                                                                                                                                                        "type":  "initial",
+                                                                                                                                                        "maximumWarning":  "500kB",
+                                                                                                                                                        "maximumError":  "1MB"
+                                                                                                                                                    },
+                                                                                                                                                    {
+                                                                                                                                                        "type":  "anyComponentStyle",
+                                                                                                                                                        "maximumWarning":  "2kB",
+                                                                                                                                                        "maximumError":  "4kB"
+                                                                                                                                                    }
+                                                                                                                                                ],
+                                                                                                                                    "outputHashing":  "all"
+                                                                                                                                },
+                                                                                                                 "development":  {
+                                                                                                                                     "fileReplacements":  [
+                                                                                                                                                              {
+                                                                                                                                                                  "replace":  "src/environments/environment.ts",
+                                                                                                                                                                  "with":  "src/environments/environment.development.ts"
+                                                                                                                                                              }
+                                                                                                                                                          ],
+                                                                                                                                     "optimization":  false,
+                                                                                                                                     "extractLicenses":  false,
+                                                                                                                                     "sourceMap":  true
+                                                                                                                                 }
+                                                                                                             },
+                                                                                          "defaultConfiguration":  "production"
+                                                                                      },
+                                                                          "serve-original":  {
+                                                                                                 "builder":  "@angular-devkit/build-angular:dev-server",
+                                                                                                 "configurations":  {
+                                                                                                                        "production":  {
+                                                                                                                                           "buildTarget":  "angular-standalone-project:esbuild:production"
+                                                                                                                                       },
+                                                                                                                        "development":  {
+                                                                                                                                            "buildTarget":  "angular-standalone-project:esbuild:development"
+                                                                                                                                        }
+                                                                                                                    },
+                                                                                                 "defaultConfiguration":  "development",
+                                                                                                 "options":  {
+                                                                                                                 "port":  4200
+                                                                                                             }
+                                                                                             }
+                                                                      }
+                                                    },
+                     "mfe-categories":  {
+                                            "projectType":  "application",
+                                            "schematics":  {
+                                                               "@schematics/angular:class":  {
+                                                                                                 "skipTests":  true
+                                                                                             },
+                                                               "@schematics/angular:component":  {
+                                                                                                     "skipTests":  true
+                                                                                                 },
+                                                               "@schematics/angular:directive":  {
+                                                                                                     "skipTests":  true
+                                                                                                 },
+                                                               "@schematics/angular:guard":  {
+                                                                                                 "skipTests":  true
+                                                                                             },
+                                                               "@schematics/angular:interceptor":  {
+                                                                                                       "skipTests":  true
+                                                                                                   },
+                                                               "@schematics/angular:pipe":  {
+                                                                                                "skipTests":  true
+                                                                                            },
+                                                               "@schematics/angular:resolver":  {
+                                                                                                    "skipTests":  true
+                                                                                                },
+                                                               "@schematics/angular:service":  {
+                                                                                                   "skipTests":  true
+                                                                                               }
+                                                           },
+                                            "root":  "projects/mfe-categories",
+                                            "sourceRoot":  "projects/mfe-categories/src",
+                                            "prefix":  "app",
+                                            "architect":  {
+                                                              "build":  {
+                                                                            "builder":  "@angular-architects/native-federation:build",
+                                                                            "options":  {
+
+                                                                                        },
+                                                                            "configurations":  {
+                                                                                                   "production":  {
+                                                                                                                      "target":  "mfe-categories:esbuild:production"
+                                                                                                                  },
+                                                                                                   "development":  {
+                                                                                                                       "target":  "mfe-categories:esbuild:development",
+                                                                                                                       "dev":  true
+                                                                                                                   }
+                                                                                               },
+                                                                            "defaultConfiguration":  "production"
+                                                                        },
+                                                              "serve":  {
+                                                                            "builder":  "@angular-architects/native-federation:build",
+                                                                            "options":  {
+                                                                                            "target":  "mfe-categories:serve-original:development",
+                                                                                            "rebuildDelay":  500,
+                                                                                            "dev":  true,
+                                                                                            "cacheExternalArtifacts":  false,
+                                                                                            "port":  4203
+                                                                                        }
+                                                                        },
+                                                              "extract-i18n":  {
+                                                                                   "builder":  "@angular-devkit/build-angular:extract-i18n"
+                                                                               },
+                                                              "test":  {
+                                                                           "builder":  "@angular-devkit/build-angular:karma",
+                                                                           "options":  {
+                                                                                           "polyfills":  [
+                                                                                                             "zone.js",
+                                                                                                             "zone.js/testing"
+                                                                                                         ],
+                                                                                           "tsConfig":  "projects/mfe-categories/tsconfig.spec.json",
+                                                                                           "assets":  [
+                                                                                                          {
+                                                                                                              "glob":  "**/*",
+                                                                                                              "input":  "projects/mfe-categories/public"
+                                                                                                          }
+                                                                                                      ],
+                                                                                           "styles":  [
+                                                                                                          "projects/mfe-categories/src/styles.css"
+                                                                                                      ],
+                                                                                           "scripts":  [
+
+                                                                                                       ]
+                                                                                       }
+                                                                       },
+                                                              "esbuild":  {
+                                                                              "builder":  "@angular/build:application",
+                                                                              "options":  {
+                                                                                              "outputPath":  "dist/mfe-categories",
+                                                                                              "index":  "projects/mfe-categories/src/index.html",
+                                                                                              "browser":  "projects/mfe-categories/src/main.ts",
+                                                                                              "polyfills":  [
+                                                                                                                "zone.js",
+                                                                                                                "es-module-shims"
+                                                                                                            ],
+                                                                                              "tsConfig":  "projects/mfe-categories/tsconfig.app.json",
+                                                                                              "assets":  [
+                                                                                                             {
+                                                                                                                 "glob":  "**/*",
+                                                                                                                 "input":  "projects/mfe-categories/public"
+                                                                                                             }
+                                                                                                         ],
+                                                                                              "styles":  [
+                                                                                                             "projects/mfe-categories/src/styles.css"
+                                                                                                         ],
+                                                                                              "scripts":  [
+
+                                                                                                          ]
+                                                                                          },
+                                                                              "configurations":  {
+                                                                                                     "production":  {
+                                                                                                                        "budgets":  [
+                                                                                                                                        {
+                                                                                                                                            "type":  "initial",
+                                                                                                                                            "maximumWarning":  "500kB",
+                                                                                                                                            "maximumError":  "1MB"
+                                                                                                                                        },
+                                                                                                                                        {
+                                                                                                                                            "type":  "anyComponentStyle",
+                                                                                                                                            "maximumWarning":  "4kB",
+                                                                                                                                            "maximumError":  "8kB"
+                                                                                                                                        }
+                                                                                                                                    ],
+                                                                                                                        "outputHashing":  "all",
+                                                                                                                        "fileReplacements":  [
+                                                                                                                                                 {
+                                                                                                                                                     "replace":  "src/environments/environment.ts",
+                                                                                                                                                     "with":  "src/environments/environment.prod.ts"
+                                                                                                                                                 }
+                                                                                                                                             ]
+                                                                                                                    },
+                                                                                                     "development":  {
+                                                                                                                         "optimization":  false,
+                                                                                                                         "extractLicenses":  false,
+                                                                                                                         "sourceMap":  true,
+                                                                                                                         "fileReplacements":  [
+                                                                                                                                                  {
+                                                                                                                                                      "replace":  "src/environments/environment.ts",
+                                                                                                                                                      "with":  "src/environments/environment.development.ts"
+                                                                                                                                                  }
+                                                                                                                                              ]
+                                                                                                                     }
+                                                                                                 },
+                                                                              "defaultConfiguration":  "production"
+                                                                          },
+                                                              "serve-original":  {
+                                                                                     "builder":  "@angular-devkit/build-angular:dev-server",
+                                                                                     "configurations":  {
+                                                                                                            "production":  {
+                                                                                                                               "buildTarget":  "mfe-categories:esbuild:production"
+                                                                                                                           },
+                                                                                                            "development":  {
+                                                                                                                                "buildTarget":  "mfe-categories:esbuild:development"
+                                                                                                                            }
+                                                                                                        },
+                                                                                     "defaultConfiguration":  "development",
+                                                                                     "options":  {
+                                                                                                     "port":  4203
+                                                                                                 }
+                                                                                 }
+                                                          }
+                                        },
+                     "mfe-auth":  {
+                                      "projectType":  "application",
+                                      "schematics":  {
+                                                         "@schematics/angular:class":  {
+                                                                                           "skipTests":  true
+                                                                                       },
+                                                         "@schematics/angular:component":  {
+                                                                                               "skipTests":  true
+                                                                                           },
+                                                         "@schematics/angular:directive":  {
+                                                                                               "skipTests":  true
+                                                                                           },
+                                                         "@schematics/angular:guard":  {
+                                                                                           "skipTests":  true
+                                                                                       },
+                                                         "@schematics/angular:interceptor":  {
+                                                                                                 "skipTests":  true
+                                                                                             },
+                                                         "@schematics/angular:pipe":  {
+                                                                                          "skipTests":  true
+                                                                                      },
+                                                         "@schematics/angular:resolver":  {
+                                                                                              "skipTests":  true
+                                                                                          },
+                                                         "@schematics/angular:service":  {
+                                                                                             "skipTests":  true
+                                                                                         }
+                                                     },
+                                      "root":  "projects/mfe-auth",
+                                      "sourceRoot":  "projects/mfe-auth/src",
+                                      "prefix":  "app",
+                                      "architect":  {
+                                                        "build":  {
+                                                                      "builder":  "@angular-architects/native-federation:build",
+                                                                      "options":  {
+
+                                                                                  },
+                                                                      "configurations":  {
+                                                                                             "production":  {
+                                                                                                                "target":  "mfe-auth:esbuild:production"
+                                                                                                            },
+                                                                                             "development":  {
+                                                                                                                 "target":  "mfe-auth:esbuild:development",
+                                                                                                                 "dev":  true
+                                                                                                             }
+                                                                                         },
+                                                                      "defaultConfiguration":  "production"
+                                                                  },
+                                                        "serve":  {
+                                                                      "builder":  "@angular-architects/native-federation:build",
+                                                                      "options":  {
+                                                                                      "target":  "mfe-auth:serve-original:development",
+                                                                                      "rebuildDelay":  0,
+                                                                                      "dev":  true,
+                                                                                      "port":  4201
+                                                                                  }
+                                                                  },
+                                                        "extract-i18n":  {
+                                                                             "builder":  "@angular-devkit/build-angular:extract-i18n"
+                                                                         },
+                                                        "test":  {
+                                                                     "builder":  "@angular-devkit/build-angular:karma",
+                                                                     "options":  {
+                                                                                     "polyfills":  [
+                                                                                                       "zone.js",
+                                                                                                       "zone.js/testing"
+                                                                                                   ],
+                                                                                     "tsConfig":  "projects/mfe-auth/tsconfig.spec.json",
+                                                                                     "assets":  [
+                                                                                                    {
+                                                                                                        "glob":  "**/*",
+                                                                                                        "input":  "projects/mfe-auth/public"
+                                                                                                    }
+                                                                                                ],
+                                                                                     "styles":  [
+                                                                                                    "projects/mfe-auth/src/styles.css"
+                                                                                                ],
+                                                                                     "scripts":  [
+
+                                                                                                 ]
+                                                                                 }
+                                                                 },
+                                                        "esbuild":  {
+                                                                        "builder":  "@angular-devkit/build-angular:application",
+                                                                        "options":  {
+                                                                                        "outputPath":  "dist/mfe-auth",
+                                                                                        "index":  "projects/mfe-auth/src/index.html",
+                                                                                        "browser":  "projects/mfe-auth/src/main.ts",
+                                                                                        "polyfills":  [
+                                                                                                          "zone.js",
+                                                                                                          "es-module-shims"
+                                                                                                      ],
+                                                                                        "tsConfig":  "projects/mfe-auth/tsconfig.app.json",
+                                                                                        "assets":  [
+                                                                                                       {
+                                                                                                           "glob":  "**/*",
+                                                                                                           "input":  "projects/mfe-auth/public"
+                                                                                                       }
+                                                                                                   ],
+                                                                                        "styles":  [
+                                                                                                       "projects/mfe-auth/src/styles.css"
+                                                                                                   ],
+                                                                                        "scripts":  [
+
+                                                                                                    ]
+                                                                                    },
+                                                                        "configurations":  {
+                                                                                               "production":  {
+                                                                                                                  "budgets":  [
+                                                                                                                                  {
+                                                                                                                                      "type":  "initial",
+                                                                                                                                      "maximumWarning":  "500kB",
+                                                                                                                                      "maximumError":  "1MB"
+                                                                                                                                  },
+                                                                                                                                  {
+                                                                                                                                      "type":  "anyComponentStyle",
+                                                                                                                                      "maximumWarning":  "4kB",
+                                                                                                                                      "maximumError":  "8kB"
+                                                                                                                                  }
+                                                                                                                              ],
+                                                                                                                  "outputHashing":  "all",
+                                                                                                                  "fileReplacements":  [
+                                                                                                                                           {
+                                                                                                                                               "replace":  "src/environments/environment.ts",
+                                                                                                                                               "with":  "src/environments/environment.prod.ts"
+                                                                                                                                           }
+                                                                                                                                       ]
+                                                                                                              },
+                                                                                               "development":  {
+                                                                                                                   "optimization":  false,
+                                                                                                                   "extractLicenses":  false,
+                                                                                                                   "sourceMap":  true,
+                                                                                                                   "fileReplacements":  [
+                                                                                                                                            {
+                                                                                                                                                "replace":  "src/environments/environment.ts",
+                                                                                                                                                "with":  "src/environments/environment.development.ts"
+                                                                                                                                            }
+                                                                                                                                        ]
+                                                                                                               }
+                                                                                           },
+                                                                        "defaultConfiguration":  "production"
+                                                                    },
+                                                        "serve-original":  {
+                                                                               "builder":  "@angular-devkit/build-angular:dev-server",
+                                                                               "configurations":  {
+                                                                                                      "production":  {
+                                                                                                                         "buildTarget":  "mfe-auth:esbuild:production"
+                                                                                                                     },
+                                                                                                      "development":  {
+                                                                                                                          "buildTarget":  "mfe-auth:esbuild:development"
+                                                                                                                      }
+                                                                                                  },
+                                                                               "defaultConfiguration":  "development",
+                                                                               "options":  {
+                                                                                               "port":  4201
+                                                                                           }
+                                                                           }
+                                                    }
+                                  },
+                     "mfe-dashboard":  {
+                                           "projectType":  "application",
+                                           "schematics":  {
+                                                              "@schematics/angular:class":  {
+                                                                                                "skipTests":  true
+                                                                                            },
+                                                              "@schematics/angular:component":  {
+                                                                                                    "skipTests":  true
+                                                                                                },
+                                                              "@schematics/angular:directive":  {
+                                                                                                    "skipTests":  true
+                                                                                                },
+                                                              "@schematics/angular:guard":  {
+                                                                                                "skipTests":  true
+                                                                                            },
+                                                              "@schematics/angular:interceptor":  {
+                                                                                                      "skipTests":  true
+                                                                                                  },
+                                                              "@schematics/angular:pipe":  {
+                                                                                               "skipTests":  true
+                                                                                           },
+                                                              "@schematics/angular:resolver":  {
+                                                                                                   "skipTests":  true
+                                                                                               },
+                                                              "@schematics/angular:service":  {
+                                                                                                  "skipTests":  true
+                                                                                              }
+                                                          },
+                                           "root":  "projects/mfe-dashboard",
+                                           "sourceRoot":  "projects/mfe-dashboard/src",
+                                           "prefix":  "app",
+                                           "architect":  {
+                                                             "build":  {
+                                                                           "builder":  "@angular-architects/native-federation:build",
+                                                                           "options":  {
+
+                                                                                       },
+                                                                           "configurations":  {
+                                                                                                  "production":  {
+                                                                                                                     "target":  "mfe-dashboard:esbuild:production"
+                                                                                                                 },
+                                                                                                  "development":  {
+                                                                                                                      "target":  "mfe-dashboard:esbuild:development",
+                                                                                                                      "dev":  true
+                                                                                                                  }
+                                                                                              },
+                                                                           "defaultConfiguration":  "production"
+                                                                       },
+                                                             "serve":  {
+                                                                           "builder":  "@angular-architects/native-federation:build",
+                                                                           "options":  {
+                                                                                           "target":  "mfe-dashboard:serve-original:development",
+                                                                                           "rebuildDelay":  0,
+                                                                                           "dev":  true,
+                                                                                           "port":  4202
+                                                                                       }
+                                                                       },
+                                                             "extract-i18n":  {
+                                                                                  "builder":  "@angular-devkit/build-angular:extract-i18n"
+                                                                              },
+                                                             "test":  {
+                                                                          "builder":  "@angular-devkit/build-angular:karma",
+                                                                          "options":  {
+                                                                                          "polyfills":  [
+                                                                                                            "zone.js",
+                                                                                                            "zone.js/testing"
+                                                                                                        ],
+                                                                                          "tsConfig":  "projects/mfe-dashboard/tsconfig.spec.json",
+                                                                                          "assets":  [
+                                                                                                         {
+                                                                                                             "glob":  "**/*",
+                                                                                                             "input":  "projects/mfe-dashboard/public"
+                                                                                                         }
+                                                                                                     ],
+                                                                                          "styles":  [
+                                                                                                         "projects/mfe-dashboard/src/styles.css"
+                                                                                                     ],
+                                                                                          "scripts":  [
+
+                                                                                                      ]
+                                                                                      }
+                                                                      },
+                                                             "esbuild":  {
+                                                                             "builder":  "@angular-devkit/build-angular:application",
+                                                                             "options":  {
+                                                                                             "outputPath":  "dist/mfe-dashboard",
+                                                                                             "index":  "projects/mfe-dashboard/src/index.html",
+                                                                                             "browser":  "projects/mfe-dashboard/src/main.ts",
+                                                                                             "polyfills":  [
+                                                                                                               "zone.js",
+                                                                                                               "es-module-shims"
+                                                                                                           ],
+                                                                                             "tsConfig":  "projects/mfe-dashboard/tsconfig.app.json",
+                                                                                             "assets":  [
+                                                                                                            {
+                                                                                                                "glob":  "**/*",
+                                                                                                                "input":  "projects/mfe-dashboard/public"
+                                                                                                            }
+                                                                                                        ],
+                                                                                             "styles":  [
+                                                                                                            "projects/mfe-dashboard/src/styles.css"
+                                                                                                        ],
+                                                                                             "scripts":  [
+
+                                                                                                         ]
+                                                                                         },
+                                                                             "configurations":  {
+                                                                                                    "production":  {
+                                                                                                                       "budgets":  [
+                                                                                                                                       {
+                                                                                                                                           "type":  "initial",
+                                                                                                                                           "maximumWarning":  "500kB",
+                                                                                                                                           "maximumError":  "1MB"
+                                                                                                                                       },
+                                                                                                                                       {
+                                                                                                                                           "type":  "anyComponentStyle",
+                                                                                                                                           "maximumWarning":  "4kB",
+                                                                                                                                           "maximumError":  "8kB"
+                                                                                                                                       }
+                                                                                                                                   ],
+                                                                                                                       "outputHashing":  "all",
+                                                                                                                       "fileReplacements":  [
+                                                                                                                                                {
+                                                                                                                                                    "replace":  "src/environments/environment.ts",
+                                                                                                                                                    "with":  "src/environments/environment.prod.ts"
+                                                                                                                                                }
+                                                                                                                                            ]
+                                                                                                                   },
+                                                                                                    "development":  {
+                                                                                                                        "optimization":  false,
+                                                                                                                        "extractLicenses":  false,
+                                                                                                                        "sourceMap":  true,
+                                                                                                                        "fileReplacements":  [
+                                                                                                                                                 {
+                                                                                                                                                     "replace":  "src/environments/environment.ts",
+                                                                                                                                                     "with":  "src/environments/environment.development.ts"
+                                                                                                                                                 }
+                                                                                                                                             ]
+                                                                                                                    }
+                                                                                                },
+                                                                             "defaultConfiguration":  "production"
+                                                                         },
+                                                             "serve-original":  {
+                                                                                    "builder":  "@angular-devkit/build-angular:dev-server",
+                                                                                    "configurations":  {
+                                                                                                           "production":  {
+                                                                                                                              "buildTarget":  "mfe-dashboard:esbuild:production"
+                                                                                                                          },
+                                                                                                           "development":  {
+                                                                                                                               "buildTarget":  "mfe-dashboard:esbuild:development"
+                                                                                                                           }
+                                                                                                       },
+                                                                                    "defaultConfiguration":  "development",
+                                                                                    "options":  {
+                                                                                                    "port":  4202
+                                                                                                }
+                                                                                }
+                                                         }
+                                       },
+                     "mfe-users":  {
+                                       "projectType":  "application",
+                                       "schematics":  {
+                                                          "@schematics/angular:class":  {
+                                                                                            "skipTests":  true
+                                                                                        },
+                                                          "@schematics/angular:component":  {
+                                                                                                "skipTests":  true
+                                                                                            },
+                                                          "@schematics/angular:directive":  {
+                                                                                                "skipTests":  true
+                                                                                            },
+                                                          "@schematics/angular:guard":  {
+                                                                                            "skipTests":  true
+                                                                                        },
+                                                          "@schematics/angular:interceptor":  {
+                                                                                                  "skipTests":  true
+                                                                                              },
+                                                          "@schematics/angular:pipe":  {
+                                                                                           "skipTests":  true
+                                                                                       },
+                                                          "@schematics/angular:resolver":  {
+                                                                                               "skipTests":  true
+                                                                                           },
+                                                          "@schematics/angular:service":  {
+                                                                                              "skipTests":  true
+                                                                                          }
+                                                      },
+                                       "root":  "projects/mfe-users",
+                                       "sourceRoot":  "projects/mfe-users/src",
+                                       "prefix":  "app",
+                                       "architect":  {
+                                                         "build":  {
+                                                                       "builder":  "@angular-architects/native-federation:build",
+                                                                       "options":  {
+
+                                                                                   },
+                                                                       "configurations":  {
+                                                                                              "production":  {
+                                                                                                                 "target":  "mfe-users:esbuild:production"
+                                                                                                             },
+                                                                                              "development":  {
+                                                                                                                  "target":  "mfe-users:esbuild:development",
+                                                                                                                  "dev":  true
+                                                                                                              }
+                                                                                          },
+                                                                       "defaultConfiguration":  "production"
+                                                                   },
+                                                         "serve":  {
+                                                                       "builder":  "@angular-architects/native-federation:build",
+                                                                       "options":  {
+                                                                                       "target":  "mfe-users:serve-original:development",
+                                                                                       "rebuildDelay":  0,
+                                                                                       "dev":  true,
+                                                                                       "port":  4204
+                                                                                   }
+                                                                   },
+                                                         "extract-i18n":  {
+                                                                              "builder":  "@angular-devkit/build-angular:extract-i18n"
+                                                                          },
+                                                         "test":  {
+                                                                      "builder":  "@angular-devkit/build-angular:karma",
+                                                                      "options":  {
+                                                                                      "polyfills":  [
+                                                                                                        "zone.js",
+                                                                                                        "zone.js/testing"
+                                                                                                    ],
+                                                                                      "tsConfig":  "projects/mfe-users/tsconfig.spec.json",
+                                                                                      "assets":  [
+                                                                                                     {
+                                                                                                         "glob":  "**/*",
+                                                                                                         "input":  "projects/mfe-users/public"
+                                                                                                     }
+                                                                                                 ],
+                                                                                      "styles":  [
+                                                                                                     "projects/mfe-users/src/styles.css"
+                                                                                                 ],
+                                                                                      "scripts":  [
+
+                                                                                                  ]
+                                                                                  }
+                                                                  },
+                                                         "esbuild":  {
+                                                                         "builder":  "@angular-devkit/build-angular:application",
+                                                                         "options":  {
+                                                                                         "outputPath":  "dist/mfe-users",
+                                                                                         "index":  "projects/mfe-users/src/index.html",
+                                                                                         "browser":  "projects/mfe-users/src/main.ts",
+                                                                                         "polyfills":  [
+                                                                                                           "zone.js",
+                                                                                                           "es-module-shims"
+                                                                                                       ],
+                                                                                         "tsConfig":  "projects/mfe-users/tsconfig.app.json",
+                                                                                         "assets":  [
+                                                                                                        {
+                                                                                                            "glob":  "**/*",
+                                                                                                            "input":  "projects/mfe-users/public"
+                                                                                                        }
+                                                                                                    ],
+                                                                                         "styles":  [
+                                                                                                        "projects/mfe-users/src/styles.css"
+                                                                                                    ],
+                                                                                         "scripts":  [
+
+                                                                                                     ]
+                                                                                     },
+                                                                         "configurations":  {
+                                                                                                "production":  {
+                                                                                                                   "budgets":  [
+                                                                                                                                   {
+                                                                                                                                       "type":  "initial",
+                                                                                                                                       "maximumWarning":  "500kB",
+                                                                                                                                       "maximumError":  "1MB"
+                                                                                                                                   },
+                                                                                                                                   {
+                                                                                                                                       "type":  "anyComponentStyle",
+                                                                                                                                       "maximumWarning":  "4kB",
+                                                                                                                                       "maximumError":  "8kB"
+                                                                                                                                   }
+                                                                                                                               ],
+                                                                                                                   "outputHashing":  "all",
+                                                                                                                   "fileReplacements":  [
+                                                                                                                                            {
+                                                                                                                                                "replace":  "src/environments/environment.ts",
+                                                                                                                                                "with":  "src/environments/environment.prod.ts"
+                                                                                                                                            }
+                                                                                                                                        ]
+                                                                                                               },
+                                                                                                "development":  {
+                                                                                                                    "optimization":  false,
+                                                                                                                    "extractLicenses":  false,
+                                                                                                                    "sourceMap":  true,
+                                                                                                                    "fileReplacements":  [
+                                                                                                                                             {
+                                                                                                                                                 "replace":  "src/environments/environment.ts",
+                                                                                                                                                 "with":  "src/environments/environment.development.ts"
+                                                                                                                                             }
+                                                                                                                                         ]
+                                                                                                                }
+                                                                                            },
+                                                                         "defaultConfiguration":  "production"
+                                                                     },
+                                                         "serve-original":  {
+                                                                                "builder":  "@angular-devkit/build-angular:dev-server",
+                                                                                "configurations":  {
+                                                                                                       "production":  {
+                                                                                                                          "buildTarget":  "mfe-users:esbuild:production"
+                                                                                                                      },
+                                                                                                       "development":  {
+                                                                                                                           "buildTarget":  "mfe-users:esbuild:development"
+                                                                                                                       }
+                                                                                                   },
+                                                                                "defaultConfiguration":  "development",
+                                                                                "options":  {
+                                                                                                "port":  4204
+                                                                                            }
+                                                                            }
+                                                     }
+                                   },
+                     "mfe-products":  {
+                                          "projectType":  "application",
+                                          "schematics":  {
+                                                             "@schematics/angular:class":  {
+                                                                                               "skipTests":  true
+                                                                                           },
+                                                             "@schematics/angular:component":  {
+                                                                                                   "skipTests":  true
+                                                                                               },
+                                                             "@schematics/angular:directive":  {
+                                                                                                   "skipTests":  true
+                                                                                               },
+                                                             "@schematics/angular:guard":  {
+                                                                                               "skipTests":  true
+                                                                                           },
+                                                             "@schematics/angular:interceptor":  {
+                                                                                                     "skipTests":  true
+                                                                                                 },
+                                                             "@schematics/angular:pipe":  {
+                                                                                              "skipTests":  true
+                                                                                          },
+                                                             "@schematics/angular:resolver":  {
+                                                                                                  "skipTests":  true
+                                                                                              },
+                                                             "@schematics/angular:service":  {
+                                                                                                 "skipTests":  true
+                                                                                             }
+                                                         },
+                                          "root":  "projects/mfe-products",
+                                          "sourceRoot":  "projects/mfe-products/src",
+                                          "prefix":  "app",
+                                          "architect":  {
+                                                            "build":  {
+                                                                          "builder":  "@angular-architects/native-federation:build",
+                                                                          "options":  {
+
+                                                                                      },
+                                                                          "configurations":  {
+                                                                                                 "production":  {
+                                                                                                                    "target":  "mfe-products:esbuild:production"
+                                                                                                                },
+                                                                                                 "development":  {
+                                                                                                                     "target":  "mfe-products:esbuild:development",
+                                                                                                                     "dev":  true
+                                                                                                                 }
+                                                                                             },
+                                                                          "defaultConfiguration":  "production"
+                                                                      },
+                                                            "serve":  {
+                                                                          "builder":  "@angular-architects/native-federation:build",
+                                                                          "options":  {
+                                                                                          "target":  "mfe-products:serve-original:development",
+                                                                                          "rebuildDelay":  0,
+                                                                                          "dev":  true,
+                                                                                          "port":  4205
+                                                                                      }
+                                                                      },
+                                                            "extract-i18n":  {
+                                                                                 "builder":  "@angular-devkit/build-angular:extract-i18n"
+                                                                             },
+                                                            "test":  {
+                                                                         "builder":  "@angular-devkit/build-angular:karma",
+                                                                         "options":  {
+                                                                                         "polyfills":  [
+                                                                                                           "zone.js",
+                                                                                                           "zone.js/testing"
+                                                                                                       ],
+                                                                                         "tsConfig":  "projects/mfe-products/tsconfig.spec.json",
+                                                                                         "assets":  [
+                                                                                                        {
+                                                                                                            "glob":  "**/*",
+                                                                                                            "input":  "projects/mfe-products/public"
+                                                                                                        }
+                                                                                                    ],
+                                                                                         "styles":  [
+                                                                                                        "projects/mfe-products/src/styles.css"
+                                                                                                    ],
+                                                                                         "scripts":  [
+
+                                                                                                     ]
+                                                                                     }
+                                                                     },
+                                                            "esbuild":  {
+                                                                            "builder":  "@angular-devkit/build-angular:application",
+                                                                            "options":  {
+                                                                                            "outputPath":  "dist/mfe-products",
+                                                                                            "index":  "projects/mfe-products/src/index.html",
+                                                                                            "browser":  "projects/mfe-products/src/main.ts",
+                                                                                            "polyfills":  [
+                                                                                                              "zone.js",
+                                                                                                              "es-module-shims"
+                                                                                                          ],
+                                                                                            "tsConfig":  "projects/mfe-products/tsconfig.app.json",
+                                                                                            "assets":  [
+                                                                                                           {
+                                                                                                               "glob":  "**/*",
+                                                                                                               "input":  "projects/mfe-products/public"
+                                                                                                           }
+                                                                                                       ],
+                                                                                            "styles":  [
+                                                                                                           "projects/mfe-products/src/styles.css"
+                                                                                                       ],
+                                                                                            "scripts":  [
+
+                                                                                                        ]
+                                                                                        },
+                                                                            "configurations":  {
+                                                                                                   "production":  {
+                                                                                                                      "budgets":  [
+                                                                                                                                      {
+                                                                                                                                          "type":  "initial",
+                                                                                                                                          "maximumWarning":  "500kB",
+                                                                                                                                          "maximumError":  "1MB"
+                                                                                                                                      },
+                                                                                                                                      {
+                                                                                                                                          "type":  "anyComponentStyle",
+                                                                                                                                          "maximumWarning":  "4kB",
+                                                                                                                                          "maximumError":  "8kB"
+                                                                                                                                      }
+                                                                                                                                  ],
+                                                                                                                      "outputHashing":  "all",
+                                                                                                                      "fileReplacements":  [
+                                                                                                                                               {
+                                                                                                                                                   "replace":  "src/environments/environment.ts",
+                                                                                                                                                   "with":  "src/environments/environment.prod.ts"
+                                                                                                                                               }
+                                                                                                                                           ]
+                                                                                                                  },
+                                                                                                   "development":  {
+                                                                                                                       "optimization":  false,
+                                                                                                                       "extractLicenses":  false,
+                                                                                                                       "sourceMap":  true,
+                                                                                                                       "fileReplacements":  [
+                                                                                                                                                {
+                                                                                                                                                    "replace":  "src/environments/environment.ts",
+                                                                                                                                                    "with":  "src/environments/environment.development.ts"
+                                                                                                                                                }
+                                                                                                                                            ]
+                                                                                                                   }
+                                                                                               },
+                                                                            "defaultConfiguration":  "production"
+                                                                        },
+                                                            "serve-original":  {
+                                                                                   "builder":  "@angular-devkit/build-angular:dev-server",
+                                                                                   "configurations":  {
+                                                                                                          "production":  {
+                                                                                                                             "buildTarget":  "mfe-products:esbuild:production"
+                                                                                                                         },
+                                                                                                          "development":  {
+                                                                                                                              "buildTarget":  "mfe-products:esbuild:development"
+                                                                                                                          }
+                                                                                                      },
+                                                                                   "defaultConfiguration":  "development",
+                                                                                   "options":  {
+                                                                                                   "port":  4205
+                                                                                               }
+                                                                               }
+                                                        }
+                                      },
+                     "mfe-revenues":  {
+                                          "projectType":  "application",
+                                          "schematics":  {
+                                                             "@schematics/angular:class":  {
+                                                                                               "skipTests":  true
+                                                                                           },
+                                                             "@schematics/angular:component":  {
+                                                                                                   "skipTests":  true
+                                                                                               },
+                                                             "@schematics/angular:directive":  {
+                                                                                                   "skipTests":  true
+                                                                                               },
+                                                             "@schematics/angular:guard":  {
+                                                                                               "skipTests":  true
+                                                                                           },
+                                                             "@schematics/angular:interceptor":  {
+                                                                                                     "skipTests":  true
+                                                                                                 },
+                                                             "@schematics/angular:pipe":  {
+                                                                                              "skipTests":  true
+                                                                                          },
+                                                             "@schematics/angular:resolver":  {
+                                                                                                  "skipTests":  true
+                                                                                              },
+                                                             "@schematics/angular:service":  {
+                                                                                                 "skipTests":  true
+                                                                                             }
+                                                         },
+                                          "root":  "projects/mfe-revenues",
+                                          "sourceRoot":  "projects/mfe-revenues/src",
+                                          "prefix":  "app",
+                                          "architect":  {
+                                                            "build":  {
+                                                                          "builder":  "@angular-architects/native-federation:build",
+                                                                          "options":  {
+
+                                                                                      },
+                                                                          "configurations":  {
+                                                                                                 "production":  {
+                                                                                                                    "target":  "mfe-revenues:esbuild:production"
+                                                                                                                },
+                                                                                                 "development":  {
+                                                                                                                     "target":  "mfe-revenues:esbuild:development",
+                                                                                                                     "dev":  true
+                                                                                                                 }
+                                                                                             },
+                                                                          "defaultConfiguration":  "production"
+                                                                      },
+                                                            "serve":  {
+                                                                          "builder":  "@angular-architects/native-federation:build",
+                                                                          "options":  {
+                                                                                          "target":  "mfe-revenues:serve-original:development",
+                                                                                          "rebuildDelay":  0,
+                                                                                          "dev":  true,
+                                                                                          "port":  4206
+                                                                                      }
+                                                                      },
+                                                            "extract-i18n":  {
+                                                                                 "builder":  "@angular-devkit/build-angular:extract-i18n"
+                                                                             },
+                                                            "test":  {
+                                                                         "builder":  "@angular-devkit/build-angular:karma",
+                                                                         "options":  {
+                                                                                         "polyfills":  [
+                                                                                                           "zone.js",
+                                                                                                           "zone.js/testing"
+                                                                                                       ],
+                                                                                         "tsConfig":  "projects/mfe-revenues/tsconfig.spec.json",
+                                                                                         "assets":  [
+                                                                                                        {
+                                                                                                            "glob":  "**/*",
+                                                                                                            "input":  "projects/mfe-revenues/public"
+                                                                                                        }
+                                                                                                    ],
+                                                                                         "styles":  [
+                                                                                                        "projects/mfe-revenues/src/styles.css"
+                                                                                                    ],
+                                                                                         "scripts":  [
+
+                                                                                                     ]
+                                                                                     }
+                                                                     },
+                                                            "esbuild":  {
+                                                                            "builder":  "@angular-devkit/build-angular:application",
+                                                                            "options":  {
+                                                                                            "outputPath":  "dist/mfe-revenues",
+                                                                                            "index":  "projects/mfe-revenues/src/index.html",
+                                                                                            "browser":  "projects/mfe-revenues/src/main.ts",
+                                                                                            "polyfills":  [
+                                                                                                              "zone.js",
+                                                                                                              "es-module-shims"
+                                                                                                          ],
+                                                                                            "tsConfig":  "projects/mfe-revenues/tsconfig.app.json",
+                                                                                            "assets":  [
+                                                                                                           {
+                                                                                                               "glob":  "**/*",
+                                                                                                               "input":  "projects/mfe-revenues/public"
+                                                                                                           }
+                                                                                                       ],
+                                                                                            "styles":  [
+                                                                                                           "projects/mfe-revenues/src/styles.css"
+                                                                                                       ],
+                                                                                            "scripts":  [
+
+                                                                                                        ]
+                                                                                        },
+                                                                            "configurations":  {
+                                                                                                   "production":  {
+                                                                                                                      "budgets":  [
+                                                                                                                                      {
+                                                                                                                                          "type":  "initial",
+                                                                                                                                          "maximumWarning":  "500kB",
+                                                                                                                                          "maximumError":  "1MB"
+                                                                                                                                      },
+                                                                                                                                      {
+                                                                                                                                          "type":  "anyComponentStyle",
+                                                                                                                                          "maximumWarning":  "4kB",
+                                                                                                                                          "maximumError":  "8kB"
+                                                                                                                                      }
+                                                                                                                                  ],
+                                                                                                                      "outputHashing":  "all",
+                                                                                                                      "fileReplacements":  [
+                                                                                                                                               {
+                                                                                                                                                   "replace":  "src/environments/environment.ts",
+                                                                                                                                                   "with":  "src/environments/environment.prod.ts"
+                                                                                                                                               }
+                                                                                                                                           ]
+                                                                                                                  },
+                                                                                                   "development":  {
+                                                                                                                       "optimization":  false,
+                                                                                                                       "extractLicenses":  false,
+                                                                                                                       "sourceMap":  true,
+                                                                                                                       "fileReplacements":  [
+                                                                                                                                                {
+                                                                                                                                                    "replace":  "src/environments/environment.ts",
+                                                                                                                                                    "with":  "src/environments/environment.development.ts"
+                                                                                                                                                }
+                                                                                                                                            ]
+                                                                                                                   }
+                                                                                               },
+                                                                            "defaultConfiguration":  "production"
+                                                                        },
+                                                            "serve-original":  {
+                                                                                   "builder":  "@angular-devkit/build-angular:dev-server",
+                                                                                   "configurations":  {
+                                                                                                          "production":  {
+                                                                                                                             "buildTarget":  "mfe-revenues:esbuild:production"
+                                                                                                                         },
+                                                                                                          "development":  {
+                                                                                                                              "buildTarget":  "mfe-revenues:esbuild:development"
+                                                                                                                          }
+                                                                                                      },
+                                                                                   "defaultConfiguration":  "development",
+                                                                                   "options":  {
+                                                                                                   "port":  4206
+                                                                                               }
+                                                                               }
+                                                        }
+                                      }
+                 },
+    "cli":  {
+                "analytics":  false
+            }
+}
+
