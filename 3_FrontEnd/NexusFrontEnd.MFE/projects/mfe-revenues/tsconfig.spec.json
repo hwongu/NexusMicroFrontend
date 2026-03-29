@@ -1,0 +1,23 @@
+﻿{
+    "extends":  "../../tsconfig.json",
+    "compilerOptions":  {
+                            "outDir":  "../../out-tsc/spec",
+                            "types":  [
+                                          "jasmine"
+                                      ],
+                            "baseUrl":  "../../",
+                            "paths":  {
+                                          "@shared/*":  [
+                                                            "src/shared/*"
+                                                        ],
+                                          "@env/*":  [
+                                                         "src/environments/*"
+                                                     ]
+                                      }
+                        },
+    "include":  [
+                    "src/**/*.spec.ts",
+                    "src/**/*.d.ts",
+                    "../../src/environments/**/*.ts"
+                ]
+}
