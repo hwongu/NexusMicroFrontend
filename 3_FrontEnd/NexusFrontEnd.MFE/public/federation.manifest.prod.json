@@ -1,0 +1,8 @@
+{
+  "mfe-auth": "/mfe-auth/remoteEntry.json",
+  "mfe-dashboard": "/mfe-dashboard/remoteEntry.json",
+  "mfe-categories": "/mfe-categories/remoteEntry.json",
+  "mfe-users": "/mfe-users/remoteEntry.json",
+  "mfe-products": "/mfe-products/remoteEntry.json",
+  "mfe-revenues": "/mfe-revenues/remoteEntry.json"
+}

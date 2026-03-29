@@ -1,0 +1,55 @@
+# ==============================================================================
+# Archivo: docker-compose.yml
+# Autor: Henry Wong (hwongu@gmail.com)
+# Descripción: 
+# Orquestador de persistencia EFÍMERA para laboratorio de microservicios.
+# Levanta tres instancias de PostgreSQL aisladas. Al detener los contenedores 
+# (docker-compose down), todos los datos insertados o modificados se perderán.
+# ==============================================================================
+
+services:
+  # ----------------------------------------------------------------------------
+  # 1. Microservicio DB: Seguridad (IAM)
+  # ----------------------------------------------------------------------------
+  db-usuarios:
+    image: postgres:18
+    container_name: ms_db_usuarios
+    environment:
+      POSTGRES_USER: admin_nexus
+      POSTGRES_PASSWORD: admin_password_123
+      POSTGRES_DB: db_usuarios
+    ports:
+      - "5433:5432"
+    volumes:
+      # Solo inyectamos el script; no guardamos el estado interno de la BD
+      - ./database/init_usuarios.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # ----------------------------------------------------------------------------
+  # 2. Microservicio DB: Catálogo
+  # ----------------------------------------------------------------------------
+  db-catalogo:
+    image: postgres:18
+    container_name: ms_db_catalogo
+    environment:
+      POSTGRES_USER: admin_nexus
+      POSTGRES_PASSWORD: admin_password_123
+      POSTGRES_DB: db_catalogo
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./database/init_catalogo.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # ----------------------------------------------------------------------------
+  # 3. Microservicio DB: Operaciones (Ingresos)
+  # ----------------------------------------------------------------------------
+  db-ingresos:
+    image: postgres:18
+    container_name: ms_db_ingresos
+    environment:
+      POSTGRES_USER: admin_nexus
+      POSTGRES_PASSWORD: admin_password_123
+      POSTGRES_DB: db_ingresos
+    ports:
+      - "5435:5432"
+    volumes:
+      - ./database/init_ingresos.sql:/docker-entrypoint-initdb.d/init.sql

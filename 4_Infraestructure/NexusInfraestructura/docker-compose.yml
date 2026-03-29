@@ -1,0 +1,195 @@
+# ==============================================================================
+# Archivo: docker-compose.yml
+# Autor: Henry Wong (hwongu@gmail.com)
+# Descripción: Orquestador Full-Stack del Ecosistema Nexus.
+# Arquitectura con Eureka Server, Config Server, API Gateway y 
+# ARRANQUE ESCALONADO (Staggered Startup) mediante retardos (sleep).
+# ==============================================================================
+
+services:
+  # ============================================================================
+  # CAPA DE BASES DE DATOS (EFÍMERAS)
+  # ============================================================================
+  
+  db-usuarios:
+    image: postgres:18
+    container_name: ms-db-usuarios
+    environment:
+      POSTGRES_USER: admin_nexus
+      POSTGRES_PASSWORD: admin_password_123
+      POSTGRES_DB: db_usuarios
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./database/init_usuarios.sql:/docker-entrypoint-initdb.d/init.sql
+
+  db-catalogo:
+    image: postgres:18
+    container_name: ms-db-catalogo
+    environment:
+      POSTGRES_USER: admin_nexus
+      POSTGRES_PASSWORD: admin_password_123
+      POSTGRES_DB: db_catalogo
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./database/init_catalogo.sql:/docker-entrypoint-initdb.d/init.sql
+
+  db-ingresos:
+    image: postgres:18
+    container_name: ms-db-ingresos
+    environment:
+      POSTGRES_USER: admin_nexus
+      POSTGRES_PASSWORD: admin_password_123
+      POSTGRES_DB: db_ingresos
+    ports:
+      - "5435:5432"
+    volumes:
+      - ./database/init_ingresos.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # ============================================================================
+  # 1. DISCOVERY SERVER (EUREKA) - Segundo 0
+  # ============================================================================
+  
+  ms-eureka-server:
+    image: eclipse-temurin:21-jre-alpine
+    container_name: ms-eureka-server
+    restart: always
+    ports:
+      - "8761:8761"
+    volumes:
+      - ./backend/deploy_eureka:/app
+    environment:
+      - EUREKA_HOSTNAME=ms-eureka-server
+      - EUREKA_DEFAULT_ZONE=http://ms-eureka-server:8761/eureka/
+    command: sh -c "java -jar /app/*.jar"
+
+  # ============================================================================
+  # 2. CONFIG SERVER - Segundo 0
+  # ============================================================================
+  
+  ms-config-server:
+    image: eclipse-temurin:21-jre-alpine
+    container_name: ms-config-server
+    restart: always
+    ports:
+      - "9099:9099"
+    volumes:
+      - ./backend/deploy_config:/app
+      - ./backend/config-repo:/config-repo 
+    environment:
+      - SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCH_LOCATIONS=file:/config-repo
+      - EUREKA_HOSTNAME=ms-config-server
+      - EUREKA_DEFAULT_ZONE=http://ms-eureka-server:8761/eureka/
+    command: sh -c "java -jar /app/*.jar"
+    depends_on:
+      - ms-eureka-server
+
+  # ============================================================================
+  # 3. MICROSERVICIOS BASE (CATÁLOGO Y SEGURIDAD) - Esperan 15 seg
+  # ============================================================================
+
+  ms-catalogo-app:
+    image: eclipse-temurin:21-jre-alpine
+    container_name: ms-catalogo-app
+    restart: always
+    ports:
+      - "9082:8082"
+    volumes:
+      - ./backend/deploy_catalogo:/app
+    environment:
+      - SPRING_CONFIG_IMPORT=configserver:http://ms-config-server:9099
+      - EUREKA_DEFAULT_ZONE=http://ms-eureka-server:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ms-db-catalogo:5432/db_catalogo
+      - DB_CATALOGO_USERNAME=admin_nexus
+      - DB_CATALOGO_PASSWORD=admin_password_123
+    # Retardo inyectado para darle tiempo al Config Server de levantar
+    command: sh -c "sleep 15 && java -jar /app/*.jar"
+    depends_on:
+      - db-catalogo
+      - ms-config-server
+
+  ms-seguridad-app:
+    image: eclipse-temurin:21-jre-alpine
+    container_name: ms-seguridad-app
+    restart: always
+    ports:
+      - "9081:8081"
+    volumes:
+      - ./backend/deploy_seguridad:/app
+    environment:
+      - SPRING_CONFIG_IMPORT=configserver:http://ms-config-server:9099
+      - EUREKA_DEFAULT_ZONE=http://ms-eureka-server:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ms-db-usuarios:5432/db_usuarios
+      - DB_SEGURIDAD_USERNAME=admin_nexus
+      - DB_SEGURIDAD_PASSWORD=admin_password_123
+    # Retardo inyectado para darle tiempo al Config Server de levantar
+    command: sh -c "sleep 15 && java -jar /app/*.jar"
+    depends_on:
+      - db-usuarios
+      - ms-config-server
+
+  # ============================================================================
+  # 4. MICROSERVICIOS TRANSACCIONALES (INGRESOS) - Espera 30 seg
+  # ============================================================================
+
+  ms-ingresos-app:
+    image: eclipse-temurin:21-jre-alpine
+    container_name: ms-ingresos-app
+    restart: always
+    ports:
+      - "9083:8083"
+    volumes:
+      - ./backend/deploy_ingresos:/app
+    environment:
+      - SPRING_CONFIG_IMPORT=configserver:http://ms-config-server:9099
+      - EUREKA_DEFAULT_ZONE=http://ms-eureka-server:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ms-db-ingresos:5432/db_ingresos
+      - DB_INGRESOS_USERNAME=admin_nexus
+      - DB_INGRESOS_PASSWORD=admin_password_123
+    # Retardo mayor para asegurar que Seguridad y Catálogo ya existan
+    command: sh -c "sleep 30 && java -jar /app/*.jar"
+    depends_on:
+      - db-ingresos
+      - ms-config-server
+      - ms-catalogo-app
+      - ms-seguridad-app
+
+  # ============================================================================
+  # 5. API GATEWAY (PUNTO DE ENTRADA ÚNICO) - Espera 45 seg
+  # ============================================================================
+  
+  ms-gateway-app:
+    image: eclipse-temurin:21-jre-alpine
+    container_name: ms-gateway-app
+    restart: always
+    ports:
+      - "9080:8080"
+    volumes:
+      - ./backend/deploy_gateway:/app
+    environment:
+      - SPRING_CONFIG_IMPORT=configserver:http://ms-config-server:9099
+      - EUREKA_DEFAULT_ZONE=http://ms-eureka-server:8761/eureka/
+    # Es el último en arrancar, cuando todo el ecosistema ya está estable
+    command: sh -c "sleep 45 && java -jar /app/*.jar"
+    depends_on:
+      - ms-config-server
+      - ms-catalogo-app
+      - ms-seguridad-app
+      - ms-ingresos-app
+
+  # ============================================================================
+  # 6. FRONTEND (SHELL + MICROFRONTENDS VIA NGINX)
+  # ============================================================================
+  
+  frontend-nexus-app:
+    image: nginx:latest
+    container_name: frontend-nexus-app
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - ms-gateway-app
