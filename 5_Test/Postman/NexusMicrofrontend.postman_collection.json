@@ -1,0 +1,779 @@
+{
+  "info": {
+    "_postman_id": "ea2887ed-16de-4d60-8eaf-c83a0edf43a3",
+    "name": "NexusMicrofrontend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "5486189"
+  },
+  "item": [
+    {
+      "name": "BackEnd_Direct",
+      "item": [
+        {
+          "name": "NexusCatalogoMs",
+          "item": [
+            {
+              "name": "GET /api/categorias",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCatalogo}}/categorias",
+                  "host": [
+                    "{{baseUrlCatalogo}}"
+                  ],
+                  "path": [
+                    "categorias"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET /api/categorias/id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCatalogo}}/categorias/1",
+                  "host": [
+                    "{{baseUrlCatalogo}}"
+                  ],
+                  "path": [
+                    "categorias",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST /api/categorias",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nombre\": \"Monitores\",\r\n  \"descripcion\": \"Pantallas y accesorios\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCatalogo}}/categorias",
+                  "host": [
+                    "{{baseUrlCatalogo}}"
+                  ],
+                  "path": [
+                    "categorias"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "PUT /api/categorias/id",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nombre\": \"Monitores Gamer\",\r\n  \"descripcion\": \"Pantallas, soportes y accesorios\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCatalogo}}/categorias/1",
+                  "host": [
+                    "{{baseUrlCatalogo}}"
+                  ],
+                  "path": [
+                    "categorias",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DELETE /api/categorias/id",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCatalogo}}/categorias/3",
+                  "host": [
+                    "{{baseUrlCatalogo}}"
+                  ],
+                  "path": [
+                    "categorias",
+                    "3"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET /api/productos",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCatalogo}}/productos",
+                  "host": [
+                    "{{baseUrlCatalogo}}"
+                  ],
+                  "path": [
+                    "productos"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET /api/productos/id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCatalogo}}/productos/1",
+                  "host": [
+                    "{{baseUrlCatalogo}}"
+                  ],
+                  "path": [
+                    "productos",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST /api/productos",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"idCategoria\": 1,\r\n  \"nombre\": \"Laptop Lenovo ThinkPad T14\",\r\n  \"precio\": 1200.5,\r\n  \"stock\": 50\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCatalogo}}/productos",
+                  "host": [
+                    "{{baseUrlCatalogo}}"
+                  ],
+                  "path": [
+                    "productos"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "PUT /api/productos/id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCatalogo}}/productos/4",
+                  "host": [
+                    "{{baseUrlCatalogo}}"
+                  ],
+                  "path": [
+                    "productos",
+                    "4"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "PUT /api/productos/id/stock",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"cantidad\": 10,\r\n  \"operacion\": \"SUMAR\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCatalogo}}/productos/4/stock",
+                  "host": [
+                    "{{baseUrlCatalogo}}"
+                  ],
+                  "path": [
+                    "productos",
+                    "4",
+                    "stock"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DELETE /api/productos/id",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCatalogo}}/productos/4",
+                  "host": [
+                    "{{baseUrlCatalogo}}"
+                  ],
+                  "path": [
+                    "productos",
+                    "4"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "NexusSeguridadMs",
+          "item": [
+            {
+              "name": "GET /api/usuarios",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlSeguridad}}/usuarios",
+                  "host": [
+                    "{{baseUrlSeguridad}}"
+                  ],
+                  "path": [
+                    "usuarios"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET /api/usuarios/id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlSeguridad}}/usuarios/1",
+                  "host": [
+                    "{{baseUrlSeguridad}}"
+                  ],
+                  "path": [
+                    "usuarios",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST /api/usuarios",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"username\": \"usuario\",\r\n  \"password\": \"123456\",\r\n  \"estado\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlSeguridad}}/usuarios",
+                  "host": [
+                    "{{baseUrlSeguridad}}"
+                  ],
+                  "path": [
+                    "usuarios"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "PUT /api/usuarios/id",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"username\": \"usuario\",\r\n  \"password\": \"clave_actualizada\",\r\n  \"estado\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlSeguridad}}/usuarios/2",
+                  "host": [
+                    "{{baseUrlSeguridad}}"
+                  ],
+                  "path": [
+                    "usuarios",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DELETE /api/usuarios/id",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlSeguridad}}/usuarios/2",
+                  "host": [
+                    "{{baseUrlSeguridad}}"
+                  ],
+                  "path": [
+                    "usuarios",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST /api/usuarios/login",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"username\": \"hwongu\",\r\n  \"password\": \"clave\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlSeguridad}}/usuarios/login",
+                  "host": [
+                    "{{baseUrlSeguridad}}"
+                  ],
+                  "path": [
+                    "usuarios",
+                    "login"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "NexusIngresoMs",
+          "item": [
+            {
+              "name": "GET /api/ingresos",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlIngresoMs}}/ingresos",
+                  "host": [
+                    "{{baseUrlIngresoMs}}"
+                  ],
+                  "path": [
+                    "ingresos"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET /api/ingresos/id/detalles",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlIngresoMs}}/ingresos/1/detalles",
+                  "host": [
+                    "{{baseUrlIngresoMs}}"
+                  ],
+                  "path": [
+                    "ingresos",
+                    "1",
+                    "detalles"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST /api/ingresos",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"ingreso\": {\r\n    \"idUsuario\": 1,\r\n    \"fechaIngreso\": \"2026-03-26T18:30:00\"\r\n  },\r\n  \"detalles\": [\r\n    {\r\n      \"idProducto\": 1,\r\n      \"cantidad\": 10,\r\n      \"precioCompra\": 950.0\r\n    },\r\n    {\r\n      \"idProducto\": 2,\r\n      \"cantidad\": 5,\r\n      \"precioCompra\": 120.0\r\n    }\r\n  ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlIngresoMs}}/ingresos",
+                  "host": [
+                    "{{baseUrlIngresoMs}}"
+                  ],
+                  "path": [
+                    "ingresos"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "PUT /api/ingresos/id/estado",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"estado\": \"PENDIENTE\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlIngresoMs}}/ingresos/2/estado",
+                  "host": [
+                    "{{baseUrlIngresoMs}}"
+                  ],
+                  "path": [
+                    "ingresos",
+                    "2",
+                    "estado"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "PUT /api/ingresos/id/anular",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlIngresoMs}}/ingresos/2/anular",
+                  "host": [
+                    "{{baseUrlIngresoMs}}"
+                  ],
+                  "path": [
+                    "ingresos",
+                    "2",
+                    "anular"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "BackEnd_ApiGateway",
+      "item": [
+        {
+          "name": "GET /seguridad/api/usuarios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlGateway}}/seguridad/api/usuarios",
+              "host": [
+                "{{baseUrlGateway}}"
+              ],
+              "path": [
+                "seguridad",
+                "api",
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /seguridad/api/usuarios/id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlGateway}}/seguridad/api/usuarios/1",
+              "host": [
+                "{{baseUrlGateway}}"
+              ],
+              "path": [
+                "seguridad",
+                "api",
+                "usuarios",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /catalogo/api/categorias",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlGateway}}/catalogo/api/categorias",
+              "host": [
+                "{{baseUrlGateway}}"
+              ],
+              "path": [
+                "catalogo",
+                "api",
+                "categorias"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /catalogo/api/categorias/id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlGateway}}/catalogo/api/categorias/1",
+              "host": [
+                "{{baseUrlGateway}}"
+              ],
+              "path": [
+                "catalogo",
+                "api",
+                "categorias",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /catalogo/api/productos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlGateway}}/catalogo/api/productos",
+              "host": [
+                "{{baseUrlGateway}}"
+              ],
+              "path": [
+                "catalogo",
+                "api",
+                "productos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /catalogo/api/productos/id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlGateway}}/catalogo/api/productos/1",
+              "host": [
+                "{{baseUrlGateway}}"
+              ],
+              "path": [
+                "catalogo",
+                "api",
+                "productos",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /ingresos/api/ingresos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlGateway}}/ingresos/api/ingresos",
+              "host": [
+                "{{baseUrlGateway}}"
+              ],
+              "path": [
+                "ingresos",
+                "api",
+                "ingresos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /ingresos/api/ingresos/id/detalles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlGateway}}/ingresos/api/ingresos/1/detalles",
+              "host": [
+                "{{baseUrlGateway}}"
+              ],
+              "path": [
+                "ingresos",
+                "api",
+                "ingresos",
+                "1",
+                "detalles"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /actuator/health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlGateway}}/actuator/health",
+              "host": [
+                "{{baseUrlGateway}}"
+              ],
+              "path": [
+                "actuator",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "BackEnd_Eureka",
+      "item": [
+        {
+          "name": "NEXUS-GATEWAY-MS",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlEureka}}/NEXUS-GATEWAY-MS",
+              "host": [
+                "{{baseUrlEureka}}"
+              ],
+              "path": [
+                "NEXUS-GATEWAY-MS"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "NEXUS-CATALOGO-MS",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlEureka}}/NEXUS-CATALOGO-MS",
+              "host": [
+                "{{baseUrlEureka}}"
+              ],
+              "path": [
+                "NEXUS-CATALOGO-MS"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "NEXUS-INGRESOS-MS",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlEureka}}/NEXUS-INGRESOS-MS",
+              "host": [
+                "{{baseUrlEureka}}"
+              ],
+              "path": [
+                "NEXUS-INGRESOS-MS"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "NEXUS-SEGURIDAD-MS",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlEureka}}/NEXUS-SEGURIDAD-MS",
+              "host": [
+                "{{baseUrlEureka}}"
+              ],
+              "path": [
+                "NEXUS-SEGURIDAD-MS"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "BackEnd_ConfigServer",
+      "item": [
+        {
+          "name": "nexus-gateway-ms",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlConfigServer}}/nexus-gateway-ms/dev",
+              "host": [
+                "{{baseUrlConfigServer}}"
+              ],
+              "path": [
+                "nexus-gateway-ms",
+                "dev"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
