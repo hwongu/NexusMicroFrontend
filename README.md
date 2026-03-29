@@ -14,7 +14,7 @@ El sistema implementa:
 
 ## 📁 Estructura del Repositorio
 
-El proyecto está dividido en cuatro grandes módulos principales:
+El proyecto está dividido en cinco grandes módulos principales:
 
 ### 🗄️ 1_DataBase (Persistencia Efímera)
 Contiene la infraestructura de datos dockerizada para el ambiente de desarrollo.
@@ -49,6 +49,10 @@ Contiene las aplicaciones cliente construidas en **Angular 19**.
 Contiene los directorios de destino para levantar la infraestructura completa mediante Docker Compose con **arranque escalonado (Staggered Startup)**.
 * **NexusInfraestructura\backend:** Contiene las carpetas para alojar los `.jar` (`deploy_catalogo`, `deploy_seguridad`, etc.) y el `config-repo`.
 * **NexusInfraestructura\frontend:** Carpeta de destino donde convivirán todas las carpetas compiladas de los Microfrontends servidas por Nginx.
+
+### 🧪 5_Test (Pruebas de API)
+Contiene las colecciones y entornos preconfigurados para validar los endpoints del ecosistema de manera independiente.
+* **Postman:** Directorio que aloja los archivos JSON exportados listos para ser importados en tu cliente HTTP.
 
 ---
 
@@ -104,11 +108,44 @@ Para garantizar que el entorno funcione correctamente, el orden de ejecución es
 
 ---
 
+## 💡 Tip Extra: Levantar Múltiples Instancias Localmente
+
+Si necesitas levantar una instancia extra de un mismo microservicio en tu entorno de desarrollo local (por ejemplo, para probar cómo Eureka hace balanceo de carga), puedes hacerlo fácilmente desde la línea de comandos sin tener que modificar el código fuente ni el IDE.
+
+Navega a la raíz del proyecto que deseas duplicar y ejecuta desde tu CMD:
+mvn spring-boot:run "-Dspring-boot.run.arguments=--server.port=8084"
+
+*(Solo cambia el número 8084 por el puerto libre que desees utilizar para esta nueva instancia).*
+
+---
+
+## 🧪 Pruebas del API con Postman
+
+Para facilitar la validación del ecosistema backend de forma aislada, se han incluido scripts de prueba parametrizados. La colección cubre peticiones directas a los microservicios, al Gateway, a Eureka y al Config Server.
+
+1. Navega a la ruta: `5_Test\Postman`.
+2. Abre tu herramienta **Postman** (o Insomnia).
+3. Utiliza la opción **Import** y selecciona los dos archivos incluidos:
+   * `NexusMicrofrontend.postman_collection.json` (Contiene las colecciones de peticiones).
+   * `NexusMicrofrontend_Enviroment.postman_environment.json` (Contiene las variables dinámicas).
+4. **¡Muy importante!** En la esquina superior derecha de Postman, asegúrate de seleccionar el entorno `NexusMicrofrontend_Enviroment`.
+5. Ve a la vista de configuración del entorno e ingresa los valores base en la columna **Current Value** según los puertos que estés utilizando. Deberás llenar:
+   * `baseUrlCatalogo`
+   * `baseUrlSeguridad`
+   * `baseUrlIngresoMs`
+   * `baseUrlGateway`
+   * `baseUrlEureka`
+   * `baseUrlConfigServer`
+6. Guarda los cambios del entorno. Ahora todas las peticiones se enrutarán dinámicamente.
+
+---
+
 ## 🛠️ Stack Tecnológico
 
 * **Backend:** Java 21, Spring Boot 4.0.5, Spring Data JPA, Lombok
 * **Arquitectura de Software:** Arquitectura Hexagonal (Puertos y Adaptadores)
 * **Cloud & Patrones:** Spring Cloud Netflix Eureka, Spring Cloud Config, Spring Cloud Gateway, Resilience4j
+* **Testing:** JUnit 5, Mockito, Postman (API Testing)
 * **Frontend:** Angular 19 (Arquitectura de Microfrontends / Module Federation)
 * **Base de Datos:** PostgreSQL 18
 * **Infraestructura:** Docker, Docker Compose & Nginx
@@ -141,3 +178,4 @@ Este repositorio es un recurso de ejemplo para prácticas en clase. No está opt
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-336791?style=for-the-badge&logo=postgresql)
 ![Docker](https://img.shields.io/badge/Docker-Compose-blue?style=for-the-badge&logo=docker)
 ![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx)
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
