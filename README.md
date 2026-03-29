@@ -1,6 +1,6 @@
 # 🚀 Proyecto Nexus – Sistema de Gestión de Almacén (Microservicios & Microfrontends)
 
-Este repositorio contiene el código fuente, la configuración de la base de datos y la infraestructura para el sistema **Nexus** en su versión más evolucionada: **Arquitectura de Microservicios con Arquitectura Hexagonal y Microfrontends**. Este proyecto ha sido diseñado como material educativo para clases universitarias, demostrando cómo construir un ecosistema distribuido altamente escalable y desacoplado, tanto en el Backend como en el Frontend.
+Este repositorio contiene el código fuente, la configuración de la base de datos y la infraestructura para el sistema **Nexus** en su versión evolucionada: **Arquitectura de Microservicios con Arquitectura Hexagonal y Microfrontends**. Este proyecto ha sido diseñado como material educativo para clases universitarias, demostrando cómo construir un ecosistema distribuido altamente escalable y desacoplado, tanto en el Backend como en el Frontend.
 
 El sistema implementa:
 * **Backend Hexagonal:** Lógica de negocio aislada e independiente de frameworks utilizando el patrón de Puertos y Adaptadores (Arquitectura Hexagonal) en cada microservicio.
